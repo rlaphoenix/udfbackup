@@ -29,7 +29,7 @@ git clone https://github.com/imPRAGMA/udfbackup
 cd udfbackup
 sudo mkdir -p /opt/udfbackup
 sudo mv data/* /opt/udfbackup/
-ln -s /opt/udfbackup/51-automedia.rules /lib/udev/rules.d/
+sudo ln -s /opt/udfbackup/51-automedia.rules /lib/udev/rules.d/
 cd ../ && rm -r udfbackup
 ```
 
