@@ -1,0 +1,1 @@
+ACTION=="change", SUBSYSTEM=="block", RUN+="/opt/udfbackup/bash_wrapper.sh %k"
