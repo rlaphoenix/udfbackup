@@ -33,7 +33,7 @@ sudo ln -s /opt/udfbackup/51-automedia.rules /lib/udev/rules.d/
 cd ../ && rm -r udfbackup
 ```
 
-Now, you need to edit `/opt/udfbackup/main.py` and set the `OUTPUT` directory to wherever you wish (your user needs permissions there).  
+Now, you need to edit `/opt/udfbackup/__init__.py` and set the `OUTPUT` directory (line 13) to wherever you wish (your user needs permissions there).  
 Finally, reboot your PC and the entire system will be configured and good to go! :O
 
 ## Uninstallation
