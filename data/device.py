@@ -29,7 +29,7 @@ class Device(object):
 
     def __init__(self, device, base_dir):
         self.device = device
-        self.base_dir = base_dir
+        self.base_dir = os.path.expanduser(base_dir)
         self.out_name = None
         self.status = self.get_status()
         self.mountpoint = f"/mnt{device}"
@@ -99,24 +99,25 @@ class Device(object):
             logging.info("Running dvdbackup")
             try:
                 # Use dvdbackup's mirror backup feature
-                p = subprocess.run([
+                subprocess.run([
                     "dvdbackup",
-                    "--input", self.device,            # choose device to dump from
+                    "--input", self.device,                 # choose device to dump from
                     "--progress", "--verbose", "--mirror",  # show progress, be verbose, backup full disc
                     "--error", "a",                         # if a read error occurs, abort
                     "--output", self.base_dir,
                     "--name", self.out_name
-                ], check=False, capture_output=False)
-                if p.stderr:
-                    logging.error(p.stderr.decode().strip())
-                    self.notify(f"{self.disctype.name} backup failed! Check log for more information!")
-                    exit()
-                if p.stdout:
-                    logging.info(p.stdout.decode().strip())
-            except:
+                ], check=True, capture_output=False)
+                #logging.info(p.stdout)
+                #if p.stderr:
+                #    logging.error(p.stderr.decode().strip())
+                #    self.notify(f"{self.disctype.name} backup failed! Check log for more information!")
+                #    exit()
+                #if p.stdout:
+                #    logging.info(p.stdout.decode().strip())
+            except Exception as e:
+                # Bug:
+                # Command '['dvdbackup', ..., '.FAMILYGUY_D4_157603028308']' died with <Signals.SIGPIPE: 13>.
                 logging.info("Exception occured! :(")
-                import sys
-                e = sys.exc_info()[0]
                 logging.info(e)
             logging.info("Finished dvdbackup")
         else:

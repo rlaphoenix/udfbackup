@@ -1,1 +1,1 @@
-ACTION=="change", SUBSYSTEM=="block", RUN+="/bin/su -l -c '/opt/udfbackup/bash_wrapper.sh %k' -s /bin/bash pragma"
+ACTION=="change", SUBSYSTEM=="block", RUN+="/opt/udfbackup/bash_wrapper.sh %k"

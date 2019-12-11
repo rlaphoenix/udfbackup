@@ -1,46 +1,43 @@
 # UDFBackup
-Automatic and Headless UDF Disc Backup Utility, supporting CD's, DVD's, HD-DVD's and Blu-Ray's.  
+Automatic and Headless UDF Disc Backup Utility.  
 Simply insert a disc in 1 or more drive's and it will automatically backup then eject all discs.
 
 ## Features
 - Automated; Detect's disc insertion via udev rules.
 - Headless; No UI, No user interaction, just automated.
 - Parallel; Can be used with multiple disc's and multiple drive's.
+- DVD and Blu-Ray supported; with more to come.
+
+## Requirements
+- Linux machine
+- Python 3 (and python-pip)
+- dvdbackup
+- makemkv (and makemkvcon)
+- git
+- at (http://software.calhariz.com/at)
+All of these requirement's can be gotten from your Linux Distro's Repo.
 
 ## Installation
-*only linux is supported, udev is not available on windows*
-
-First, you need to set up your `/etc/fstab` configuration to set where your drives mount to.  
-The mount folder has to be specific. For example `/dev/sr0` would need to be mounted to `/mnt/dev/sr0`.  
-Perhaps a reader can figure out a way to obtain the mount location via pythonudf or such so this isn't necessary?
-
-Example fstab entries:
-
-```
-# <file system> <dir>         <type>  <options>              <dump>  <pass>
-/dev/sr0        /mnt/dev/sr0  auto    user,noauto,exec,utf8  0       0
-/dev/sr1        /mnt/dev/sr1  auto    user,noauto,exec,utf8  0       0
-/dev/sr2        /mnt/dev/sr2  auto    user,noauto,exec,utf8  0       0
-```
-
-Now do the following:
 ```
 git clone https://github.com/imPRAGMA/udfbackup
 cd udfbackup
+sudo pip3 install -r requirements.txt
 sudo mkdir -p /opt/udfbackup
 sudo mv data/* /opt/udfbackup/
 sudo ln -s /opt/udfbackup/51-automedia.rules /lib/udev/rules.d/
 cd ../ && rm -r udfbackup
 ```
-
-Now, you need to edit `/opt/udfbackup/__init__.py` and set the `OUTPUT` directory (line 13) to wherever you wish (your user needs permissions there). Also edit `/opt/udfbackup/51-automedia.rules` and change the username near the end from `pragma` to your current username.  
+In `/opt/udfbackup/bash_wrapper.sh` change the `USERNAME` and `OUTPUT_D` variables to your needs. The `USERNAME` need's permission to read, write and rename file's in the specified `OUTPUT_D` directory.
 Finally, reboot your PC and the entire system will be configured and good to go! :O
+
+Go insert a disc after rebooting and it will spin up!  
+Backups are created in a hidden directory in the specified `OUTPUT_D` (`.` at start of the directory name).  
+Once the Backup has finished, it will unhide the directory to indicate that you can mess with it however you like now.
 
 ## Uninstallation
 ```
 sudo rm -r /opt/udfbackup
-reboot
 ```
-That all, you can remove the fstab entries if you wish but it won't interfere with anything.
+That all, but I recommend rebooting just in case there's any old settings or stuff at play.
 
 ## [License](LICENSE)
