@@ -8,6 +8,11 @@ Simply insert a disc in 1 or more drive's and it will automatically backup then 
 - Parallel; Can be used with multiple disc's and multiple drive's.
 - DVD and Blu-Ray supported; with more to come.
 
+## To-do list
+
+- [ ] Region Lock Removal
+- [ ] ISO Output with accurate 1:1 metadata
+
 ## Requirements
 - Linux machine
 - Python 3 (and python-pip)
