@@ -10,7 +10,7 @@ args = ap.parse_args()
 
 # Get Arguments
 DEVICE = f"/dev/{args.device[:3]}"
-OUTPUT = "/home/owner/Videos"  # Change this! Don't use ~ as that will link to `root` user's home directory, not yours
+OUTPUT = "~/Videos"  # Change this!
 
 # Start! :D
 Device(DEVICE, OUTPUT)
