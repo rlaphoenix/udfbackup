@@ -141,17 +141,10 @@ class Device(object):
         logging.info(f"Calling {args}")
         try:
             p = subprocess.run(args, check=False, capture_output=True)
-            if p.stdout:
-                logging.debug(" ".join(args))
-                logging.debug(p.stdout.decode().strip())
-            if p.stderr:
-                logging.error(p.stderr.decode().strip())
+            logging.debug(" ".join(args))
+            logging.debug(p.stdout.decode().strip())
             if p.returncode != 0:
                 self.exit(f"Child-process {args[0]} returned a non-zero exit code!", 6)
-            if p.stderr:
-                self.exit(f"Child-process {args[0]} returned an exception!", 7)
-            if get_text and p.stdout:
-                return p.stdout.decode().strip()
         except:
             self.exit(f"An exception occured when dealing with a child-process!\nArguments: {args}\n{traceback.format_exc()}", 8)
     
