@@ -96,6 +96,7 @@ class Device(object):
         logging.info(f"Starting {self.disctype.name} Backup")
         if self.disctype == self.DiscType.BD:
             # Get MakeMKV disc number
+            # todo ; instead of doing it this way, couldnt we just do disc:/dev/sr1 e.t.c
             mdisc = subprocess.check_output(
                 args=f"makemkvcon -r info disc:9999 | grep {self.device} | grep -oP '(?<=:).*?(?=,)'",
                 shell=True
